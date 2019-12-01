@@ -12,14 +12,18 @@ import androidx.lifecycle.Observer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
-public class MainFragment extends Fragment implements ValueChooser.OnValueChangeListener {
+public class MainFragment extends Fragment
+        implements ValueChooser.OnValueChangeListener,
+        ColorCodeChooser.OnColorCodeChangedListener {
 
     private View colorView;
     private ValueChooser valueChooserRed;
     private ValueChooser valueChooserGreen;
     private ValueChooser valueChooserBlue;
+    private ColorCodeChooser colorCodeChooser;
+    private Button showButton;
 
     private MainViewModel viewModel;
 
@@ -54,6 +58,12 @@ public class MainFragment extends Fragment implements ValueChooser.OnValueChange
                 colorView.setBackgroundColor(argb);
             }
         });
+        viewModel.hex().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String hex) {
+                colorCodeChooser.setColorCode(hex);
+            }
+        });
     }
 
     @Override
@@ -72,6 +82,15 @@ public class MainFragment extends Fragment implements ValueChooser.OnValueChange
         valueChooserBlue = view.findViewById(R.id.vcBlue);
         valueChooserBlue.setOnValueChangedListener(this);
         colorView = view.findViewById(R.id.colorView);
+        colorCodeChooser = view.findViewById(R.id.colorCodeChooser);
+        colorCodeChooser.setOnColorCodeChangedListener(this);
+        showButton = view.findViewById(R.id.showButton);
+        showButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.requestShowDialog();
+            }
+        });
     }
 
     @Override
@@ -88,5 +107,10 @@ public class MainFragment extends Fragment implements ValueChooser.OnValueChange
                 viewModel.setBlue(value);
                 break;
         }
+    }
+
+    @Override
+    public void onColorCodeChanged(ColorCodeChooser colorCodeChooser, String colorCode) {
+        viewModel.setHex(colorCode);
     }
 }

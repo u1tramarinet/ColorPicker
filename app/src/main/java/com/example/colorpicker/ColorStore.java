@@ -1,19 +1,15 @@
 package com.example.colorpicker;
 
 import android.graphics.Color;
+import android.text.TextUtils;
 
 import androidx.annotation.ColorInt;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
 public class ColorStore {
     private static ColorStore INSTANCE = new ColorStore();
-    @ColorInt int color;
     private final int VALUE_MIN = 0;
     private final int VALUE_MAX = 255;
-
-    private Executor executor = Executors.newSingleThreadExecutor();
+    private @ColorInt int color;
 
     private ColorStore() {
         color = Color.BLACK;
@@ -77,7 +73,57 @@ public class ColorStore {
         return this;
     }
 
+    public String hex() {
+        return Integer.toHexString(argb());
+    }
+
+    public ColorStore hex(String hex) {
+        if (TextUtils.isEmpty(hex)) return this;
+
+        char sharp = '#';
+        if (hex.charAt(0) == sharp) {
+            String digits = hex.substring(1);
+            int length = digits.length();
+
+            switch (length) {
+                case 4:
+                case 3:
+                    hex = sharp + duplicateEachDigit(digits, 2);
+                    break;
+                case 2:
+                    hex = sharp + duplicateDigit(digits.charAt(0), 2) + duplicateDigit(digits.charAt(1), 6);
+                    break;
+                case 1:
+                    hex = sharp + duplicateDigit(digits.charAt(0), 6);
+                    break;
+            }
+        }
+
+        try {
+            color = Color.parseColor(hex);
+        } catch (IllegalArgumentException e) {
+            // throw
+        }
+        return this;
+    }
+
     private boolean isValueInRange(int value) {
         return ((VALUE_MIN <= value) && (value <= VALUE_MAX));
+    }
+
+    private String duplicateEachDigit(String input, int times) {
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < input.length(); i++) {
+            output.append(duplicateDigit(input.charAt(i), times));
+        }
+        return output.toString();
+    }
+
+    private String duplicateDigit(char input, int times) {
+        StringBuilder output = new StringBuilder();
+        for (int j = 0; j < times; j++) {
+            output.append(input);
+        }
+        return output.toString();
     }
 }

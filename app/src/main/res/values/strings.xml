@@ -6,6 +6,7 @@
     <string name="title_blue">B</string>
     <string name="title_color_code">Code</string>
     <string name="sharp">#</string>
+    <string name="alpha">Alpha</string>
 
     <string name="button_minus10">-10</string>
     <string name="button_minus1">-1</string>
@@ -13,4 +14,9 @@
     <string name="button_plus10">+10</string>
     <string name="button_copy">copy</string>
     <string name="button_show">show</string>
+
+    <!--  Dialog  -->
+    <string name="title_dialog">Color Info</string>
+    <string name="format_color_info">R: %d G: %d B: %d</string>
+    <string name="sample_color_info">R: 255 G: 255 B: 255</string>
 </resources>

@@ -34,6 +34,7 @@ public class ValueChooser extends ConstraintLayout implements SeekBar.OnSeekBarC
     public interface OnValueChangeListener {
         void onValueChanged(@NonNull ValueChooser valueChooser, int value);
     }
+
     @Nullable
     private OnValueChangeListener listener;
 
@@ -160,12 +161,12 @@ public class ValueChooser extends ConstraintLayout implements SeekBar.OnSeekBarC
         synchronizing = true;
         int v;
         try {
-             v = Integer.parseInt(editable.toString());
+            v = Integer.parseInt(editable.toString());
         } catch (NumberFormatException e) {
             v = seekBar.getProgress();
         }
         setValue(v);
-        synchronizing= false;
+        synchronizing = false;
     }
 
     @Override
@@ -174,7 +175,7 @@ public class ValueChooser extends ConstraintLayout implements SeekBar.OnSeekBarC
 
         synchronizing = true;
         setValue(progress);
-        synchronizing= false;
+        synchronizing = false;
     }
 
     @Override

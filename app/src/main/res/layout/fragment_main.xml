@@ -58,4 +58,14 @@
         android:layout_marginBottom="@dimen/margin_common"
         app:layout_constraintTop_toBottomOf="@id/vcBlue"/>
 
+    <Button
+        android:id="@+id/showButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_show"
+        app:layout_constraintTop_toBottomOf="@id/colorCodeChooser"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

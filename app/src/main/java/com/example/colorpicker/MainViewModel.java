@@ -16,6 +16,10 @@ public class MainViewModel extends ViewModel {
     private final MutableLiveData<Integer> blue = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<Integer> argb = new MutableLiveData<>();
+    @NonNull
+    private final MutableLiveData<String> hex = new MutableLiveData<>();
+    @NonNull
+    private final MutableLiveData<ColorStore> showDialog = new MutableLiveData<>();
 
     public MainViewModel() {
         updateColor();
@@ -52,10 +56,28 @@ public class MainViewModel extends ViewModel {
         return argb;
     }
 
+    public void setHex(String hex) {
+        colorStore.hex(hex);
+        updateColor();
+    }
+
+    public LiveData<String> hex() {
+        return hex;
+    }
+
+    public void requestShowDialog() {
+        showDialog.postValue(colorStore);
+    }
+
+    public LiveData<ColorStore> showDialog() {
+        return showDialog;
+    }
+
     private void updateColor() {
         red.postValue(colorStore.red());
         green.postValue(colorStore.green());
         blue.postValue(colorStore.blue());
         argb.postValue(colorStore.argb());
+        hex.postValue(colorStore.hex());
     }
 }
