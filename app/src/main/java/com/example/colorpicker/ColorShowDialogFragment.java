@@ -14,9 +14,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 public class ColorShowDialogFragment extends DialogFragment {
-    public static final String KEY_RED = "red";
-    public static final String KEY_GREEN = "green";
-    public static final String KEY_BLUE = "blue";
+    private static final String KEY_RED = "red";
+    private static final String KEY_GREEN = "green";
+    private static final String KEY_BLUE = "blue";
 
     public static ColorShowDialogFragment newInstance(int red, int green, int blue) {
         ColorShowDialogFragment fragment = new ColorShowDialogFragment();
@@ -33,13 +33,11 @@ public class ColorShowDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-
-        Bundle args = getArguments();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.view_dialog_color_show, null);
 
+        Bundle args = getArguments();
         if (args != null) {
             int red = args.getInt(KEY_RED, 0);
             int green = args.getInt(KEY_GREEN, 0);
