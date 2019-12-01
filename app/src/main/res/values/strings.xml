@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">ColorPicker</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_red">R</string>
+    <string name="title_green">G</string>
+    <string name="title_blue">B</string>
+    <string name="title_color_code">Code</string>
+    <string name="sharp">#</string>
+
+    <string name="button_minus10">-10</string>
+    <string name="button_minus1">-1</string>
+    <string name="button_plus1">+1</string>
+    <string name="button_plus10">+10</string>
+    <string name="button_copy">copy</string>
+    <string name="button_show">show</string>
 </resources>
