@@ -32,16 +32,8 @@
         android:maxLength="8"
         android:inputType="text"
         android:layout_weight="2.5"
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
         tools:text="FFFFFFFF" />
-
-
-    <CheckBox
-        android:id="@+id/alphaCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/alpha"/>
 
     <Button
         android:id="@+id/copyButton"
