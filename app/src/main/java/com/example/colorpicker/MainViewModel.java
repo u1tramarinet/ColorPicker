@@ -15,7 +15,7 @@ public class MainViewModel extends ViewModel {
     @NonNull
     private final MutableLiveData<Integer> blue = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Integer> argb = new MutableLiveData<>();
+    private final MutableLiveData<Integer> rgb = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<String> hex = new MutableLiveData<>();
     @NonNull
@@ -52,8 +52,8 @@ public class MainViewModel extends ViewModel {
         updateColor();
     }
 
-    public LiveData<Integer> argb() {
-        return argb;
+    public LiveData<Integer> rgb() {
+        return rgb;
     }
 
     public void setHex(String hex) {
@@ -77,7 +77,7 @@ public class MainViewModel extends ViewModel {
         red.postValue(colorStore.red());
         green.postValue(colorStore.green());
         blue.postValue(colorStore.blue());
-        argb.postValue(colorStore.argb());
+        rgb.postValue(colorStore.rgb());
         hex.postValue(colorStore.hex());
     }
 }

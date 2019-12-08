@@ -7,8 +7,8 @@ import androidx.annotation.ColorInt;
 
 public class ColorStore {
     private static ColorStore INSTANCE = new ColorStore();
-    private final int VALUE_MIN = 0;
-    private final int VALUE_MAX = 255;
+    private static final int VALUE_MIN = 0;
+    private static final int VALUE_MAX = 255;
     private @ColorInt int color;
 
     private ColorStore() {
@@ -17,6 +17,16 @@ public class ColorStore {
 
     public static ColorStore getInstance() {
         return INSTANCE;
+    }
+
+    public int rgb() {
+        return color;
+    }
+
+    public ColorStore rgb(int red, int green, int blue) {
+        return red(red)
+                .green(green)
+                .blue(blue);
     }
 
     public int argb() {
@@ -47,7 +57,7 @@ public class ColorStore {
 
     public ColorStore red(int red) {
         if (isValueInRange(red)) {
-            color = Color.argb(alpha(), red, green(), blue());
+            color = Color.rgb(red, green(), blue());
         }
         return this;
     }
@@ -58,7 +68,7 @@ public class ColorStore {
 
     public ColorStore green(int green) {
         if (isValueInRange(green)) {
-            color = Color.argb(alpha(), red(), green, blue());
+            color = Color.rgb(red(), green, blue());
         }
         return this;
     }
@@ -68,15 +78,24 @@ public class ColorStore {
 
     public ColorStore blue(int blue) {
         if (isValueInRange(blue)) {
-            color = Color.argb(alpha(), red(), green(), blue);
+            color = Color.rgb(red(), green(), blue);
         }
         return this;
     }
 
     public String hex() {
-        return Integer.toHexString(argb());
+        String colorStr = Integer.toHexString(rgb());
+        if (colorStr.startsWith("ff")) {
+            colorStr = colorStr.substring(2);
+        }
+        return colorStr;
     }
 
+    /**
+     * #AARRGGBB, #RRGGBB, #ARGB, #RGB, #AX, #X
+     * @param hex
+     * @return
+     */
     public ColorStore hex(String hex) {
         if (TextUtils.isEmpty(hex)) return this;
 

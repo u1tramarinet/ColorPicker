@@ -52,7 +52,7 @@ public class MainFragment extends Fragment
                 valueChooserBlue.setValue(blue);
             }
         });
-        viewModel.argb().observe(this, new Observer<Integer>() {
+        viewModel.rgb().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer argb) {
                 colorView.setBackgroundColor(argb);
