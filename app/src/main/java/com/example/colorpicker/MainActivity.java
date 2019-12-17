@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity
-        implements ValueChooser.OnValueChangeListener, ColorCodeChooser.OnColorCodeChangedListener {
+        implements ValueChooser.OnValueChangeListener,
+        ColorCodeChooser.OnColorCodeChangedListener {
 
     private View colorView;
     private ValueChooser valueChooserRed;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity
     private Button showButton;
 
     private ColorStore colorStore = ColorStore.getInstance();
+    private boolean broadcasting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +32,9 @@ public class MainActivity extends AppCompatActivity
         initView();
     }
 
-    public static MainViewModel obtainMainViewModel(FragmentActivity activity) {
-        ViewModelProvider.AndroidViewModelFactory factory = ViewModelProvider.AndroidViewModelFactory.getInstance(activity.getApplication());
-
-        return new ViewModelProvider(activity, factory).get(MainViewModel.class);
-    }
-
     @Override
     public void onValueChanged(@NonNull ValueChooser valueChooser, int value) {
+        if (broadcasting) return;
         int id = valueChooser.getId();
         switch (id) {
             case R.id.vcRed:
@@ -50,11 +47,14 @@ public class MainActivity extends AppCompatActivity
                 colorStore.blue(value);
                 break;
         }
+        updateValues();
     }
 
     @Override
     public void onColorCodeChanged(ColorCodeChooser colorCodeChooser, String colorCode) {
+        if (broadcasting) return;
         colorStore.hex(colorCode);
+        updateValues();
     }
 
     private void initView() {
@@ -79,5 +79,15 @@ public class MainActivity extends AppCompatActivity
     private void showDialog(int red, int green, int blue) {
         ColorShowDialogFragment fragment = ColorShowDialogFragment.newInstance(red, green, blue);
         fragment.show(getSupportFragmentManager(), "dialog");
+    }
+
+    private void updateValues() {
+        broadcasting = true;
+        colorView.setBackgroundColor(colorStore.argb());
+        valueChooserRed.setValue(colorStore.red());
+        valueChooserGreen.setValue(colorStore.green());
+        valueChooserBlue.setValue(colorStore.blue());
+        colorCodeChooser.setColorCode(colorStore.hex());
+        broadcasting = false;
     }
 }
